@@ -168,17 +168,26 @@ const Trace: React.FC = () => {
           {/* 3 ── the entry, with the posting map live */}
           <Panel label={t('trace.entryLabel')} caption={t('trace.entry.caption')}>
             {/*
-              Hidden below md, where the row below wraps to two lines and these
-              headings would label the wrong columns.
+              One caption, not two column headings.
+
+              Two headings in their own grid looked aligned and was not: a
+              header row is a separate grid container from each entry row, so
+              its `auto` first column sizes to the word "Rule key" (68px) while
+              the rows size to `Dr` plus the widest key chip (122px). "Your
+              account" landed 66px left of the column it claimed to label,
+              pointing at blank space.
+
+              Matching them needs either one grid over every cell (which fights
+              the two-line wrap below md) or a hardcoded column width that
+              breaks the day a longer rule key is added. A caption reads
+              left to right across both columns and cannot drift.
             */}
-            <div
-              className="hidden grid-cols-[auto_1fr_auto] items-center gap-x-3 pb-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-[var(--text-tertiary)] md:grid"
+            <p
+              className="pb-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-[var(--text-tertiary)]"
               style={{ borderBottom: '1px solid var(--border-subtle)' }}
             >
-              <span>{t('trace.entry.keyLabel')}</span>
-              <span>{t('trace.entry.accountLabel')}</span>
-              <span />
-            </div>
+              {t('trace.entry.columnsCaption')}
+            </p>
 
             {lines.map((line) => {
               const fixed = line.options.length === 1;

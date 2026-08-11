@@ -779,9 +779,11 @@
     "source": {
       "caption": "Settlement Report V2",
       "fields": [
+        { "label": "Settlement", "value": "AMZ-IN-2026-12" },
         { "label": "Order", "value": "402-7719318-4021146" },
         { "label": "SKU", "value": "KTN-STL-750" },
         { "label": "Category", "value": "Kitchen & Dining" },
+        { "label": "Fulfilment", "value": "FBA" },
         { "label": "Item price", "value": "₹12,000" },
         { "label": "Commission", "value": "−₹1,020" }
       ]
@@ -802,8 +804,7 @@
     },
     "entry": {
       "caption": "Journal entry, posted",
-      "keyLabel": "Rule key",
-      "accountLabel": "Your account",
+      "columnsCaption": "Rule key · your account",
       "accountAria": "Account for rule key",
       "debitLabel": "Dr",
       "creditLabel": "Cr",
