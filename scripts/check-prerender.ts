@@ -115,6 +115,28 @@ for (const route of ROUTES) {
     }
   }
 
+  /*
+    Inline event handlers cannot run under this CSP.
+
+    A hash whitelists an inline <script>; it does nothing for an `onload=` or
+    `onclick=` attribute, which needs 'unsafe-hashes' or 'unsafe-inline'. So a
+    handler in the built HTML is code that silently never executes in
+    production while working perfectly on the dev server, which sends no CSP.
+
+    That shipped once: `onload="this.media='all'"` on the font stylesheet, so
+    Inter never loaded and the site ran on fallback fonts with no visible error.
+  */
+  // Comments masked first. This file explains the bug in prose that contains
+  // the very string being searched for, and relying on the surrounding
+  // punctuation not to match is luck rather than a rule.
+  const htmlNoComments = html.replace(/<!--[\s\S]*?-->/g, '');
+  for (const match of htmlNoComments.matchAll(/\son(?:load|click|error|submit|change|focus|blur|mouse\w+)=/g)) {
+    const near = htmlNoComments
+      .slice(Math.max(0, (match.index ?? 0) - 60), (match.index ?? 0) + 40)
+      .replace(/\s+/g, ' ');
+    failures.push(`${route.name}: inline event handler, blocked by CSP and will not run — ...${near.trim()}...`);
+  }
+
   // ── Structured data must be present, parse, and carry the expected types ──
   //
   // Worth checking mechanically because it is invisible twice over: it is
@@ -206,6 +228,10 @@ for (const [, hash] of navHashes) {
     }
     if (/script-src[^;]*'unsafe-inline'/.test(headers)) {
       failures.push("dist/_headers CSP allows 'unsafe-inline' in script-src");
+    }
+    // The booking iframe is same-origin (/api/schedule) before it redirects.
+    if (!/frame-src[^;]*'self'/.test(headers)) {
+      failures.push("dist/_headers CSP frame-src is missing 'self'; the booking iframe will be blocked");
     }
     for (const required of ['Strict-Transport-Security', 'X-Content-Type-Options', 'frame-ancestors']) {
       if (!headers.includes(required)) failures.push(`dist/_headers is missing ${required}`);
