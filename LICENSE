@@ -1,0 +1,25 @@
+Copyright (c) 2026 Arivlabs. All rights reserved.
+
+This repository and its contents, including the source code, written copy,
+visual design and brand assets, are the proprietary property of Arivlabs.
+
+The repository is public so that it can be built and hosted by a third-party
+service. Public visibility is not a grant of any licence.
+
+No permission is given to copy, modify, distribute, publish, sublicense or
+create derivative works from any part of this repository, in whole or in part,
+for any purpose, commercial or otherwise, without prior written permission from
+Arivlabs.
+
+Viewing the source, and forking for the sole purpose of proposing a change back
+to this repository, are permitted.
+
+Third-party dependencies listed in package.json remain under their own licences,
+which are unaffected by this notice.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
