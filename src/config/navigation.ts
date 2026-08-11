@@ -39,4 +39,13 @@ export const SECTION_NAV = [
   { labelKey: 'sectionNav.trust', hash: 'trust' },
 ] as const;
 
+/**
+ * Just the hashes, derived so they cannot drift from the nav above.
+ *
+ * Exported as a module constant rather than mapped at the call site because
+ * `useActiveSection` takes it as an effect dependency: a fresh array on every
+ * render would tear down and re-attach the scroll listener on every render.
+ */
+export const SECTION_HASHES: readonly string[] = SECTION_NAV.map((item) => item.hash);
+
 export type Route = (typeof ROUTES)[keyof typeof ROUTES];
