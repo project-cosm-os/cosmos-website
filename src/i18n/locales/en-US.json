@@ -768,5 +768,78 @@
       }
     ],
     "note": "What we learn setting you up becomes part of the product. The next business we onboard takes less time because of yours, and the one after that less again."
+  },
+  "trace": {
+    "label": "Follow the money",
+    "heading": "One line, all the way down.",
+    "lead": "A settlement line as Amazon sent it, the rule that caught the overcharge, and the entry it produced. Move an account and watch the books stay balanced.",
+    "sourceLabel": "What Amazon sent",
+    "ruleLabel": "What the rules found",
+    "entryLabel": "What posted",
+    "source": {
+      "caption": "Settlement Report V2",
+      "fields": [
+        { "label": "Order", "value": "402-7719318-4021146" },
+        { "label": "SKU", "value": "KTN-STL-750" },
+        { "label": "Category", "value": "Kitchen & Dining" },
+        { "label": "Item price", "value": "₹12,000" },
+        { "label": "Commission", "value": "−₹1,020" }
+      ]
+    },
+    "rule": {
+      "caption": "Referral fee check",
+      "rows": [
+        { "label": "Your rate card", "value": "7.0%" },
+        { "label": "Actually charged", "value": "8.5%" },
+        { "label": "Fee at your rate", "value": "₹840" },
+        { "label": "Fee on the line", "value": "₹1,020" }
+      ],
+      "findingName": "Referral fee overcharge",
+      "findingSeverity": "High",
+      "claimLabel": "Recoverable",
+      "claimValue": "₹180",
+      "note": "Tolerance is half a point. At 7.5% this rule stays quiet."
+    },
+    "entry": {
+      "caption": "Journal entry, posted",
+      "keyLabel": "Rule key",
+      "accountLabel": "Your account",
+      "accountAria": "Account for rule key",
+      "debitLabel": "Dr",
+      "creditLabel": "Cr",
+      "lines": [
+        {
+          "key": "clearing.amazon",
+          "side": "Dr",
+          "amount": "₹10,980",
+          "options": [
+            { "code": "1260", "name": "Amazon.in Clearing" },
+            { "code": "1210", "name": "Amazon.in Receivable" }
+          ]
+        },
+        {
+          "key": "fee.commission",
+          "side": "Dr",
+          "amount": "₹1,020",
+          "options": [
+            { "code": "5110", "name": "Referral and Commission Fees" },
+            { "code": "5190", "name": "Other Marketplace Fees" }
+          ]
+        },
+        {
+          "key": "revenue.marketplace",
+          "side": "Cr",
+          "amount": "₹12,000",
+          "options": [{ "code": "4010", "name": "Marketplace Sales" }]
+        }
+      ],
+      "debitTotalLabel": "Debits",
+      "debitTotalValue": "₹12,000",
+      "creditTotalLabel": "Credits",
+      "creditTotalValue": "₹12,000",
+      "balancedLabel": "Balanced"
+    },
+    "mapNote": "Rules speak in keys. Your chart decides where a key lands, and that map is data your CA edits, not code we deploy.",
+    "note": "The entry records what happened. The claim records what should have. Software that quietly posted the ₹840 you were owed would balance too, and your books would be a work of fiction."
   }
 }

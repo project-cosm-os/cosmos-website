@@ -38,6 +38,12 @@ const FEES = rupees(dict.mockup.tiles.feesValue);
 const RETURNS = rupees(dict.mockup.amounts.returns);
 const REIMBURSEMENTS = rupees(dict.mockup.amounts.reimbursements);
 
+/** A labelled figure, the shape most of the dictionary's number rows share. */
+interface Field {
+  label: string;
+  value: string;
+}
+
 const failures: string[] = [];
 const check = (label: string, actual: number, expected: number) => {
   if (actual !== expected) {
@@ -81,6 +87,59 @@ check('gross to net (waterfall)', net, rupees(dict.mockup.amounts.net));
 const recoverRows = (dict.pillars.recover.rows as { amount: string }[]).map((r) => rupees(r.amount));
 const statedSubtotal = rupees(String(dict.pillars.recover.footer).match(/₹[\d,]+/)?.[0] ?? '0');
 check('Recover rows subtotal', recoverRows.reduce((a, b) => a + b, 0), statedSubtotal);
+
+/*
+  7. The trace section: one settlement line, the referral-fee rule that fires on
+     it, and the entry it posts.
+
+     This one is checked harder than the rest because it is the section that
+     invites arithmetic. It shows its own working — a rate, a second rate, and
+     the difference between them — so a reader who disagrees with any figure can
+     say so, and a wrong one discredits the whole page rather than just itself.
+
+     The rule mirrors reconciliation/domain/leakage-rules.ts: a referral fee
+     charged more than half a point above the rate card is an overcharge, and
+     the claim is the difference. Note what the entry does NOT do: it posts the
+     ₹1,020 actually charged, not the ₹840 owed. The gap is a claim, not a
+     posting. That distinction is the section's argument, so it is asserted.
+*/
+const trace = dict.trace;
+const traceField = (fields: Field[], label: string) =>
+  rupees(fields.find((f) => f.label === label)?.value ?? '0');
+const tracePct = (rows: Field[], label: string) =>
+  Number(String(rows.find((r) => r.label === label)?.value ?? '0').replace('%', ''));
+
+const sourceFields = trace.source.fields as Field[];
+const ruleRows = trace.rule.rows as Field[];
+
+const PRINCIPAL = traceField(sourceFields, 'Item price');
+const CHARGED = traceField(sourceFields, 'Commission');
+const cardPct = tracePct(ruleRows, 'Your rate card');
+const chargedPct = tracePct(ruleRows, 'Actually charged');
+
+check('trace: fee on the line is the charged rate', Math.round((PRINCIPAL * chargedPct) / 100), CHARGED);
+check('trace: fee at the rate card', Math.round((PRINCIPAL * cardPct) / 100), traceField(ruleRows, 'Fee at your rate'));
+check('trace: rule panel agrees with the line', CHARGED, traceField(ruleRows, 'Fee on the line'));
+check('trace: claim is the difference', CHARGED - traceField(ruleRows, 'Fee at your rate'), rupees(trace.rule.claimValue));
+
+// The rule only fires beyond the half-point tolerance it states.
+if (chargedPct <= cardPct + 0.5) {
+  failures.push(`trace: ${chargedPct}% is within tolerance of ${cardPct}%, so this finding would not fire`);
+}
+
+const entryLines = trace.entry.lines as { key: string; side: string; amount: string }[];
+const sideTotal = (side: string) =>
+  entryLines.filter((l) => l.side === side).reduce((a, l) => a + rupees(l.amount), 0);
+const debits = sideTotal(trace.entry.debitLabel);
+const credits = sideTotal(trace.entry.creditLabel);
+const lineAmount = (key: string) => rupees(entryLines.find((l) => l.key === key)?.amount ?? '0');
+
+check('trace: entry balances', debits, credits);
+check('trace: stated debit total', debits, rupees(trace.entry.debitTotalValue));
+check('trace: stated credit total', credits, rupees(trace.entry.creditTotalValue));
+check('trace: revenue is the full item price', PRINCIPAL, lineAmount('revenue.marketplace'));
+check('trace: clearing is item price less the fee', PRINCIPAL - CHARGED, lineAmount('clearing.amazon'));
+check('trace: the fee posted is the fee charged, not the fee owed', CHARGED, lineAmount('fee.commission'));
 
 if (failures.length > 0) {
   console.error(`\nfigures do not reconcile (${failures.length}):`);
