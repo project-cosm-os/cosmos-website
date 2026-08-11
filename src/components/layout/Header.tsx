@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Menu, X } from 'lucide-react';
 
 import { BRAND } from '../../config/brand-identity';
-import { SECTION_NAV, ROUTES } from '../../config/navigation';
+import { SECTION_NAV, SECTION_HASHES, ROUTES } from '../../config/navigation';
+import { useActiveSection } from '../../hooks/useActiveSection';
 import Button from '../shared/Button';
 
 /**
@@ -34,8 +35,17 @@ const Header: React.FC = () => {
     setMobileMenuOpen(false);
   }, [location.pathname, location.hash]);
 
-  /** Highlights the section being read, but only while actually on the home page. */
-  const activeHash = location.pathname === ROUTES.home ? location.hash.replace('#', '') : '';
+  /*
+    Highlights the section being read, but only while actually on the home page,
+    since nothing else renders these anchors.
+
+    This used to read `location.hash`, which only changes when a nav link is
+    clicked. Scrolling past a section by hand left the header showing whichever
+    link was last pressed, or nothing at all for the majority of visitors who
+    never press one. It now follows the scroll position.
+  */
+  const onHome = location.pathname === ROUTES.home;
+  const activeHash = useActiveSection(SECTION_HASHES, onHome);
 
   return (
     <header
@@ -64,6 +74,7 @@ const Header: React.FC = () => {
             <Link
               key={item.hash}
               to={`${ROUTES.home}#${item.hash}`}
+              aria-current={activeHash === item.hash ? 'true' : undefined}
               className={`text-[14px] font-medium transition-colors no-underline whitespace-nowrap ${
                 activeHash === item.hash
                   ? 'text-[var(--primary)]'
@@ -144,7 +155,12 @@ const Header: React.FC = () => {
             <Link
               key={item.hash}
               to={`${ROUTES.home}#${item.hash}`}
-              className="text-base font-medium py-2 no-underline text-[var(--text-secondary)]"
+              aria-current={activeHash === item.hash ? 'true' : undefined}
+              className={`text-base font-medium py-2 no-underline ${
+                activeHash === item.hash
+                  ? 'text-[var(--primary)]'
+                  : 'text-[var(--text-secondary)]'
+              }`}
             >
               {t(item.labelKey)}
             </Link>

@@ -9,6 +9,7 @@ import Pillars from '../components/sections/Pillars';
 import Deployment from '../components/sections/Deployment';
 import AskCosmo from '../components/sections/AskCosmo';
 import Flow from '../components/sections/Flow';
+import Trace from '../components/sections/Trace';
 import Trust from '../components/sections/Trust';
 import FAQ from '../components/sections/FAQ';
 import CTASection from '../components/sections/CTASection';
@@ -41,8 +42,14 @@ import CTASection from '../components/sections/CTASection';
  * chat box bolted to a dashboard; read after the ledger exists, it is obvious
  * why its answers can be trusted.
  *
- * Then the mechanism (flow), the CA's real question (trust), the objections
- * they would otherwise raise on the call (FAQ), and one ask (CTA).
+ * Then the mechanism (flow), and immediately the proof of it (trace). Flow
+ * claims a four-step loop ending in a journal entry; trace walks one real
+ * settlement line through it and lands a balanced entry. Claim then evidence,
+ * in that order, because the evidence is unreadable before the claim and the
+ * claim is unbelievable without it.
+ *
+ * Then the CA's real question (trust), the objections they would otherwise
+ * raise on the call (FAQ), and one ask (CTA).
  */
 const Home: React.FC = () => {
   /*
@@ -63,6 +70,7 @@ const Home: React.FC = () => {
     <TrackedSection name="deployment"><Deployment /></TrackedSection>
     <TrackedSection name="ask-cosmo"><AskCosmo /></TrackedSection>
     <TrackedSection name="flow"><Flow /></TrackedSection>
+    <TrackedSection name="trace"><Trace /></TrackedSection>
     <TrackedSection name="trust"><Trust /></TrackedSection>
     <TrackedSection name="faq"><FAQ /></TrackedSection>
     <TrackedSection name="cta"><CTASection /></TrackedSection>
