@@ -262,3 +262,12 @@ Renaming the product later is `brandName` in `brand-identity.ts`, `websiteUrl` i
 The previous GitHub Actions workflow deployed to an S3 bucket and CloudFront distribution that were never created. It was removed rather than left to fail on the first push.
 
 Note that `build.sourcemap` is `true` in `vite.config.ts`, so source maps are published alongside the site and the source is readable by anyone who looks. That is inherited and fine for a marketing site, but it is a choice, not an oversight.
+
+## Licence
+
+Proprietary. See [LICENSE](LICENSE).
+
+The repository is public so Netlify can build and host it on the free tier.
+That is a hosting arrangement, not a licence grant: the source, the copy and the
+brand assets are not open source, and nothing here may be reused without written
+permission. Reading it and forking to propose a change back are fine.

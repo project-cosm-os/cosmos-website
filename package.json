@@ -60,5 +60,6 @@
   "description": "CosmOS marketing site \u2014 autonomous finance for Indian commerce",
   "pnpm": {
     "onlyBuiltDependencies": []
-  }
+  },
+  "license": "UNLICENSED"
 }
