@@ -415,6 +415,10 @@
         "answer": "A reconciliation tool finds a discrepancy and hands you a spreadsheet. CosmOS quantifies it, then posts the journal entry."
       },
       {
+        "question": "Is this software or a consulting engagement?",
+        "answer": "Software. The engagement exists to get your fee structures, channels and books into it, and what we learn doing that goes back into the product rather than into a playbook we resell."
+      },
+      {
         "question": "Can the AI change my numbers?",
         "answer": "No. It routes questions and reads documents. Posting is deterministic, and an unbalanced entry is refused by the database."
       },
@@ -517,6 +521,38 @@
           {
             "name": "Claim filing",
             "detail": "File and track disputes until the money lands.",
+            "status": "soon"
+          }
+        ]
+      },
+      {
+        "label": "Deployment",
+        "heading": "Set up for your business, not a template.",
+        "lead": "Every customer gets an engagement. What varies is its size, not whether you get one.",
+        "features": [
+          {
+            "name": "Fee schedule mapping",
+            "detail": "Your negotiated rate cards encoded rule by rule, so a discrepancy is measured against your contract."
+          },
+          {
+            "name": "Channel connection",
+            "detail": "Seller accounts, bank feeds and GST credentials wired up and proven against a real settlement."
+          },
+          {
+            "name": "Chart of accounts setup",
+            "detail": "Configured to match how your CA already books, so the ERP export needs no cleanup."
+          },
+          {
+            "name": "Posting rules",
+            "detail": "Where each fee, tax and adjustment lands, agreed with your CA before the first entry is written."
+          },
+          {
+            "name": "First close, run together",
+            "detail": "The first reconciliation and the first month-end with your team, not handed over as a document."
+          },
+          {
+            "name": "Custom recovery workflows",
+            "detail": "Claim handling shaped around the disputes your channels actually raise.",
             "status": "soon"
           }
         ]
@@ -708,5 +744,29 @@
     "cosmo": "Ask Cosmo",
     "platform": "Platform",
     "trust": "Security"
+  },
+  "deployment": {
+    "label": "Deployment",
+    "heading": "Nobody hands you a login and wishes you luck.",
+    "lead": "Every customer gets an engagement sized to their business. We map your fee schedules, connect your marketplaces and set up your books before you run a single report.",
+    "items": [
+      {
+        "title": "Your rate cards, mapped",
+        "body": "Every fee schedule you have negotiated, encoded rule by rule, so the reconciliation knows what correct looks like for you rather than for an average seller."
+      },
+      {
+        "title": "Your channels, connected",
+        "body": "Seller accounts, bank feeds and GST credentials wired up and tested against a real settlement of yours, not a sample file."
+      },
+      {
+        "title": "Your chart of accounts, not ours",
+        "body": "Configured to match how your CA already books, so the export lands in your ERP without a cleanup pass at the other end."
+      },
+      {
+        "title": "Your first close, together",
+        "body": "We run the first reconciliation and the first month-end alongside your team, so the handover is a working process rather than a document."
+      }
+    ],
+    "note": "What we learn setting you up becomes part of the product. The next business we onboard takes less time because of yours, and the one after that less again."
   }
 }
