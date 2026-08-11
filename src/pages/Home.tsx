@@ -6,6 +6,7 @@ import TrackedSection from '../components/shared/TrackedSection';
 import Hero from '../components/sections/Hero';
 import Connects from '../components/sections/Connects';
 import Pillars from '../components/sections/Pillars';
+import Deployment from '../components/sections/Deployment';
 import AskCosmo from '../components/sections/AskCosmo';
 import Flow from '../components/sections/Flow';
 import Trust from '../components/sections/Trust';
@@ -30,7 +31,13 @@ import CTASection from '../components/sections/CTASection';
  *   Own      — then the ledger, because that is the endgame and the thing no
  *              reconciliation tool can follow us into.
  *
- * Ask Cosmo comes after the four, deliberately. Led with, it reads as another
+ * Deployment sits immediately after the four, because that is where the
+ * objection lands. Somebody who has just read what the product does is
+ * thinking "and how would my own fee structures ever get into it", not "tell
+ * me more features". It is also the answer to the quieter question a buyer has
+ * about any young product: who makes this work for me.
+ *
+ * Ask Cosmo comes after that, deliberately. Led with, it reads as another
  * chat box bolted to a dashboard; read after the ledger exists, it is obvious
  * why its answers can be trusted.
  *
@@ -53,6 +60,7 @@ const Home: React.FC = () => {
     <TrackedSection name="hero"><Hero /></TrackedSection>
     <TrackedSection name="connects"><Connects /></TrackedSection>
     <TrackedSection name="pillars"><Pillars /></TrackedSection>
+    <TrackedSection name="deployment"><Deployment /></TrackedSection>
     <TrackedSection name="ask-cosmo"><AskCosmo /></TrackedSection>
     <TrackedSection name="flow"><Flow /></TrackedSection>
     <TrackedSection name="trust"><Trust /></TrackedSection>
