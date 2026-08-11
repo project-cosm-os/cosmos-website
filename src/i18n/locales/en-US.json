@@ -1,0 +1,712 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Product",
+    "bookDemo": "Book a demo",
+    "blog": "Blog",
+    "console": "Console",
+    "getStarted": "Book a demo",
+    "toggleMenu": "Toggle menu"
+  },
+  "footer": {
+    "pages": "Pages",
+    "features": "Product",
+    "bookDemo": "Book a demo",
+    "social": "Social",
+    "email": "Email",
+    "copyright": "© 2026 {{companyName}}. All rights reserved.",
+    "tagline": "{{tagline}}",
+    "cookieSettings": "Cookie settings"
+  },
+  "hero": {
+    "eyebrow": "Autonomous finance for Indian commerce",
+    "titleLead": "The finance team that",
+    "titleAccent": "runs itself.",
+    "subtitle": "Connect your marketplaces. CosmOS finds what they kept, files the claim, and books the entry. Your books close themselves.",
+    "ctaPrimary": "Book a demo",
+    "ctaSecondary": "See how it works",
+    "note": "GST-native · immutable ledger · money never floats"
+  },
+  "sources": {
+    "label": "Reads directly from",
+    "soon": "soon",
+    "amazon": "Amazon",
+    "flipkart": "Flipkart",
+    "meesho": "Meesho",
+    "shopify": "Shopify",
+    "ondc": "ONDC",
+    "gstn": "GSTN",
+    "banks": "Banks"
+  },
+  "mockup": {
+    "url": "console.cosmos.ai/overview",
+    "title": "Overview",
+    "subtitle": "Where the money went this period.",
+    "status": "Books balanced",
+    "waterfallTitle": "Gross to net",
+    "tiles": {
+      "grossLabel": "Gross sales",
+      "grossNote": "12 settlements",
+      "feesLabel": "Marketplace fees",
+      "feesNote": "14.8% of gross",
+      "leakageLabel": "Leakage found",
+      "leakageNote": "222 open findings",
+      "netLabel": "Net deposited",
+      "netNote": "reached the bank",
+      "grossValue": "₹42,58,120",
+      "feesValue": "₹6,31,004",
+      "leakageValue": "₹1,52,340",
+      "netValue": "₹27,59,500"
+    },
+    "waterfall": {
+      "gross": "Gross sales",
+      "fees": "Marketplace fees",
+      "returns": "Returns and refunds",
+      "withheld": "TCS and TDS withheld",
+      "reimbursements": "Reimbursements",
+      "net": "Net deposited"
+    },
+    "nav": {
+      "overview": "Overview",
+      "accounting": "Accounting",
+      "settlements": "Settlements",
+      "reconciliation": "Reconciliation",
+      "tax": "GST & Tax",
+      "inventory": "Inventory",
+      "channels": "Channels",
+      "assistant": "Ask Cosmo"
+    },
+    "amounts": {
+      "gross": "₹42,58,120",
+      "fees": "−₹6,31,004",
+      "returns": "−₹8,94,320",
+      "withheld": "−₹25,549",
+      "reimbursements": "+₹52,253",
+      "net": "₹27,59,500"
+    },
+    "brand": "CosmOS",
+    "brandAccent": "AI"
+  },
+  "pillars": {
+    "recover": {
+      "label": "Recover",
+      "heading": "Every leaked rupee, found and claimed.",
+      "lead": "Every settlement line checked against the orders behind it. When a fee is wrong, you get the number and the evidence.",
+      "points": [
+        "Commission overcharges, flagged per line",
+        "Shipping fees and weight-slab disputes",
+        "Returns and RTO checked against stock",
+        "Refund commission never credited back"
+      ],
+      "panelTitle": "Largest findings this period",
+      "panelMeta": "4 of 222 · ₹1,52,340 total",
+      "rows": [
+        {
+          "title": "Referral fee overcharge",
+          "meta": "S-1042 · rate card 15.5%, charged 18%",
+          "amount": "₹12,480",
+          "state": "filed"
+        },
+        {
+          "title": "Return not reimbursed",
+          "meta": "58 units · received, never credited",
+          "amount": "₹48,930",
+          "state": "investigating"
+        },
+        {
+          "title": "Refund commission not returned",
+          "meta": "43 orders · commission retained",
+          "amount": "₹26,340",
+          "state": "filed"
+        },
+        {
+          "title": "Payout mismatch",
+          "meta": "S-1039 · report vs bank deposit",
+          "amount": "₹8,930",
+          "state": "recovered"
+        }
+      ],
+      "footer": "These four total ₹96,680 · every line checked, not a sample"
+    },
+    "automate": {
+      "label": "Automate",
+      "heading": "Books that close themselves.",
+      "lead": "Every settlement, fee, return and recovery posts as a journal entry. The trial balance is always current, so month-end stops being an event.",
+      "points": [
+        "A voucher for every transaction, fully traceable",
+        "Reports from the ledger, not marketplace exports",
+        "Maker-checker where judgement is needed",
+        "Periods that refuse to close over a known gap"
+      ],
+      "panelTitle": "Journal, today",
+      "panelMeta": "FY 2026-27",
+      "rows": [
+        {
+          "title": "Amazon settlement AMZ-IN-2026-12",
+          "meta": "Dr Bank · Dr Fees · Cr Sales",
+          "amount": "₹2,54,228",
+          "state": "posted"
+        },
+        {
+          "title": "TCS withheld u/s 52",
+          "meta": "matched to the settlement report",
+          "amount": "₹3,932",
+          "state": "posted"
+        },
+        {
+          "title": "Returns provision",
+          "meta": "drafted · maker-checker",
+          "amount": "₹34,750",
+          "state": "review"
+        },
+        {
+          "title": "Weighted-average COGS",
+          "meta": "costed at the running average",
+          "amount": "₹1,66,291",
+          "state": "posted"
+        }
+      ],
+      "footer": "Trial balance balanced · every entry traceable to its event"
+    },
+    "comply": {
+      "label": "GST & Tax",
+      "heading": "GST, TDS and TCS, ready before the deadline.",
+      "lead": "Withholding is tracked the moment a settlement lands, not rebuilt from reports the week the return is due.",
+      "points": [
+        "TCS u/s 52 and TDS u/s 194-O, per settlement",
+        "Matched to what the marketplace actually deducted",
+        "A filing calendar built from your own postings",
+        "Output GST and GSTR-2B credit recovery in build"
+      ],
+      "panelTitle": "Withholding this period",
+      "panelMeta": "FY 2026-27",
+      "rows": [
+        {
+          "title": "TCS u/s 52",
+          "meta": "0.5% of ₹42,58,120 taxable value",
+          "amount": "₹21,291",
+          "state": "posted"
+        },
+        {
+          "title": "TDS u/s 194-O",
+          "meta": "0.1% of ₹42,58,120 gross sales",
+          "amount": "₹4,258",
+          "state": "posted"
+        },
+        {
+          "title": "Matched to the settlement report",
+          "meta": "both figures agree with Amazon",
+          "amount": "✓",
+          "state": "posted"
+        },
+        {
+          "title": "GSTR-1",
+          "meta": "due 11 Oct · summarised from the ledger",
+          "amount": "11 Oct",
+          "state": "review"
+        }
+      ],
+      "footer": "Withheld ₹25,549 · posted when the settlement was read"
+    },
+    "own": {
+      "label": "Own the ledger",
+      "heading": "Your books. Not a feed into someone else's.",
+      "lead": "Reconciliation tools push a summary into Tally and stop. CosmOS is the book of record, and still exports clean entries to your ERP.",
+      "points": [
+        "Native double-entry, append-only by construction",
+        "A chart of accounts you configure",
+        "Nine integrity checks, on demand",
+        "CSV export to Tally, Zoho, Busy, QuickBooks"
+      ],
+      "panelTitle": "Integrity, last run",
+      "panelMeta": "9 checks",
+      "rows": [
+        {
+          "title": "Trial balance balances",
+          "meta": "debits equal credits",
+          "amount": "✓",
+          "state": "posted"
+        },
+        {
+          "title": "Every voucher balances",
+          "meta": "enforced by the database",
+          "amount": "✓",
+          "state": "posted"
+        },
+        {
+          "title": "Journal is append-only",
+          "meta": "UPDATE revoked at role level",
+          "amount": "✓",
+          "state": "posted"
+        },
+        {
+          "title": "Inventory ties to the subledger",
+          "meta": "ledger vs stock",
+          "amount": "✓",
+          "state": "posted"
+        }
+      ],
+      "footer": "Nothing written into a closed period · no cross-tenant lines"
+    }
+  },
+  "askCosmo": {
+    "label": "Ask Cosmo",
+    "heading": "Ask your books anything.",
+    "lead": "Plain questions about fees, margin, tax, stock and payouts. The model picks the question. The ledger supplies the number.",
+    "refusalsTitle": "When it cannot answer, it says so",
+    "refusals": [
+      {
+        "reason": "Not recognised",
+        "detail": "it cannot compute that"
+      },
+      {
+        "reason": "Not permitted",
+        "detail": "your role cannot see those accounts"
+      },
+      {
+        "reason": "Not licensed",
+        "detail": "your plan excludes that module"
+      },
+      {
+        "reason": "No data",
+        "detail": "nothing posted for that period"
+      },
+      {
+        "reason": "Out of scope",
+        "detail": "it reaches beyond your books"
+      }
+    ],
+    "refusalNote": "Five refusals, not one shrug. An assistant that guesses once is an assistant nobody trusts twice.",
+    "question": "What did Amazon actually keep last month?",
+    "answer": "Amazon deducted ₹6,31,004 on ₹42,58,120 of gross sales, or 14.8%.",
+    "facts": [
+      {
+        "label": "Referral fees",
+        "value": "₹2,78,140"
+      },
+      {
+        "label": "Fulfilment fees",
+        "value": "₹2,18,732"
+      },
+      {
+        "label": "Advertising",
+        "value": "₹94,132"
+      },
+      {
+        "label": "Storage and other",
+        "value": "₹40,000"
+      }
+    ],
+    "source": "From 12 settlements · ledger, August 2026",
+    "permissionNote": "Every answer re-checks your permissions before it is written"
+  },
+  "flow": {
+    "label": "How it fits together",
+    "heading": "From marketplace mess to closed books.",
+    "lead": "Every source feeds one immutable event log. The loop runs continuously, and everything it concludes lands as a journal entry.",
+    "sourcesLabel": "Sources",
+    "loopLabel": "The loop",
+    "outputsLabel": "Outputs",
+    "sources": [
+      {
+        "name": "Amazon",
+        "detail": "SP-API settlements"
+      },
+      {
+        "name": "Flipkart · Meesho",
+        "detail": "seller APIs"
+      },
+      {
+        "name": "Shopify · ONDC",
+        "detail": "orders and payouts"
+      },
+      {
+        "name": "Banks",
+        "detail": "statements"
+      },
+      {
+        "name": "GSTN",
+        "detail": "GSTR · e-invoice"
+      }
+    ],
+    "loop": [
+      {
+        "step": "Detect",
+        "detail": "reconcile every line"
+      },
+      {
+        "step": "Investigate",
+        "detail": "trace the discrepancy"
+      },
+      {
+        "step": "Recover",
+        "detail": "quantify and claim"
+      },
+      {
+        "step": "Book",
+        "detail": "post the journal entry"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Trial balance",
+        "detail": "always current"
+      },
+      {
+        "name": "P&L · Balance sheet",
+        "detail": "from the ledger"
+      },
+      {
+        "name": "GST & TDS",
+        "detail": "per settlement"
+      },
+      {
+        "name": "Audit trail",
+        "detail": "every action replayable"
+      },
+      {
+        "name": "ERP export",
+        "detail": "Tally · Zoho · Busy"
+      }
+    ],
+    "note": "Step four is a journal entry, not a summary handed to another system"
+  },
+  "trust": {
+    "label": "Built like infrastructure",
+    "heading": "Trust is a feature. It ships in the schema.",
+    "lead": "Every figure is provable. The audit trail is not a report you run, it is the system itself.",
+    "items": [
+      {
+        "title": "The AI cannot invent a number",
+        "body": "The model reads and classifies. A deterministic kernel posts, and the database refuses an unbalanced voucher."
+      },
+      {
+        "title": "The journal is append-only",
+        "body": "UPDATE is revoked at the database role level. A correction is a reversing entry, never a rewrite."
+      },
+      {
+        "title": "Money never floats",
+        "body": "Integer paise, end to end. No figure in your books is the result of a floating-point multiplication."
+      },
+      {
+        "title": "One tenant cannot see another",
+        "body": "Row-level security under a non-owner role, so a forgotten WHERE clause cannot leak another business."
+      },
+      {
+        "title": "A closed period stays closed",
+        "body": "Postings into a closed period are rejected, and closing is blocked while any posting is known to have failed."
+      },
+      {
+        "title": "Every figure traces to an event",
+        "body": "The ledger is event-sourced. Any balance walks back to the settlement line that caused it."
+      }
+    ]
+  },
+  "faq": {
+    "label": "Straight answers",
+    "heading": "The questions your CA will ask.",
+    "items": [
+      {
+        "question": "Does this replace Tally or Zoho?",
+        "answer": "No. CosmOS is the book of record for your marketplace business, and exports clean journal entries to whatever your CA already runs."
+      },
+      {
+        "question": "How is this different from a reconciliation tool?",
+        "answer": "A reconciliation tool finds a discrepancy and hands you a spreadsheet. CosmOS quantifies it, then posts the journal entry."
+      },
+      {
+        "question": "Can the AI change my numbers?",
+        "answer": "No. It routes questions and reads documents. Posting is deterministic, and an unbalanced entry is refused by the database."
+      },
+      {
+        "question": "Which marketplaces work today?",
+        "answer": "Amazon, over SP-API. Flipkart, Meesho, Shopify and ONDC are next, along with bank statements and GSTN."
+      },
+      {
+        "question": "Where does GST stand?",
+        "answer": "TCS u/s 52 and TDS u/s 194-O are tracked per settlement today. Output GST and GSTR-2B credit recovery are in build."
+      },
+      {
+        "question": "Is my data separate from other businesses?",
+        "answer": "Yes, enforced by Postgres row-level security under a non-owner role, and checked by an integrity test that fails on a cross-tenant line."
+      }
+    ]
+  },
+  "cta": {
+    "heading": "See what your marketplaces kept.",
+    "body": "Thirty minutes. We walk the ledger, the reconciliation and the journal entries end to end, on demo data or on a settlement of yours.",
+    "button": "Book a demo"
+  },
+  "features": {
+    "seoTitle": "Product",
+    "seoDescription": "Double-entry accounting, settlement reconciliation, inventory valuation and Indian tax. Every capability in CosmOS, and what is still in build.",
+    "label": "Product",
+    "heading": "One ledger under the whole business.",
+    "lead": "Settlements, reconciliation, accounting, GST, inventory and payouts share one ledger and one event log. Nothing has to be reconciled back, so a number on one screen is the number on every screen.",
+    "soon": "soon",
+    "cta": "Book a demo",
+    "groups": [
+      {
+        "label": "Accounting",
+        "heading": "A real ledger, not a report.",
+        "lead": "Double-entry from the ground up. Every figure traces to a voucher, and every voucher to the event that caused it.",
+        "features": [
+          {
+            "name": "Chart of accounts",
+            "detail": "103 accounts for Indian e-commerce. Create, edit, archive, restore."
+          },
+          {
+            "name": "Journal",
+            "detail": "Every posting, filterable, with drill-down to the lines behind each voucher."
+          },
+          {
+            "name": "Account ledgers",
+            "detail": "Opening balance, postings in date order, running position, close."
+          },
+          {
+            "name": "Trial balance",
+            "detail": "From the ledger, not from exports. Balanced, or it says so."
+          },
+          {
+            "name": "Profit and loss",
+            "detail": "Cost of sales from real weighted-average costing."
+          },
+          {
+            "name": "Balance sheet",
+            "detail": "Assets against liabilities and equity, with the gap stated when it does not tie."
+          },
+          {
+            "name": "Manual vouchers",
+            "detail": "Accruals, provisions, depreciation. The entries no marketplace sends."
+          },
+          {
+            "name": "Fiscal periods",
+            "detail": "Close and reopen. Closing is blocked while a posting is known to have failed."
+          },
+          {
+            "name": "Posting map",
+            "detail": "39 rules from marketplace event to account. Your CA can redirect any fee."
+          },
+          {
+            "name": "Integrity checks",
+            "detail": "Nine, on demand: trial balance, vouchers, balance sheet, postable accounts, closed periods, append-only journal, tenant isolation, failed postings, inventory ties."
+          },
+          {
+            "name": "ERP export",
+            "detail": "Journal lines as CSV for Tally, Zoho, Busy and QuickBooks."
+          }
+        ]
+      },
+      {
+        "label": "Recovery",
+        "heading": "What the marketplace kept.",
+        "lead": "Every settlement line reconciled against the orders behind it. Not a sample, and not a total-versus-total check that misses everything interesting.",
+        "features": [
+          {
+            "name": "Settlement reconciliation",
+            "detail": "Each payout split into fee components and matched to the orders it covers."
+          },
+          {
+            "name": "Leakage findings",
+            "detail": "Referral overcharges, returns never reimbursed, refund commission retained, payout mismatches. Each with a claimable amount."
+          },
+          {
+            "name": "Settlement detail",
+            "detail": "Gross to net for one payout, in the order the money moves."
+          },
+          {
+            "name": "Claim filing",
+            "detail": "File and track disputes until the money lands.",
+            "status": "soon"
+          }
+        ]
+      },
+      {
+        "label": "Operations",
+        "heading": "Stock, tax and payouts.",
+        "lead": "The parts of commerce finance that decide whether your margin is real.",
+        "features": [
+          {
+            "name": "Inventory and valuation",
+            "detail": "Weighted-average costing, so cost of sales is computed rather than guessed."
+          },
+          {
+            "name": "Stock movements",
+            "detail": "A subledger with a running position, reconciled against the ledger."
+          },
+          {
+            "name": "Returns",
+            "detail": "Where returned units stopped, and which were reimbursed."
+          },
+          {
+            "name": "Purchases and opening stock",
+            "detail": "Manual or bulk CSV, all-or-nothing so a half-imported file cannot happen."
+          },
+          {
+            "name": "TCS and TDS",
+            "detail": "Section 52 and 194-O tracked per settlement, with a compliance calendar."
+          },
+          {
+            "name": "Supplier payments",
+            "detail": "Maker-checker. Whoever raises a payout cannot approve it."
+          },
+          {
+            "name": "Output GST",
+            "detail": "CGST, SGST and IGST determination on sales.",
+            "status": "soon"
+          },
+          {
+            "name": "GST reconciliation and ITC",
+            "detail": "GSTR-2B matching, input credit recovery, vendor filing status.",
+            "status": "soon"
+          }
+        ]
+      },
+      {
+        "label": "Intelligence",
+        "heading": "Ask your books.",
+        "lead": "Questions answered from the ledger by a bounded set of tools. The model picks the question. The platform supplies every number.",
+        "features": [
+          {
+            "name": "Ask Cosmo",
+            "detail": "Plain questions, answered with the figures the answer was built from."
+          },
+          {
+            "name": "Twelve question types",
+            "detail": "Profit, revenue, margin, expenses, balance sheet, cash, inventory value, inventory health, books health, tax, forecast, payouts."
+          },
+          {
+            "name": "Refuses rather than guesses",
+            "detail": "Five refusals: unrecognised, not permitted, not licensed, no data, out of scope."
+          },
+          {
+            "name": "Role-aware",
+            "detail": "Every answer re-checks the asker's permissions, so it cannot surface what they may not see."
+          },
+          {
+            "name": "Runs without a model",
+            "detail": "Keyword routing handles the common questions. A slow model costs you phrasing, never numbers."
+          },
+          {
+            "name": "Your model or ours",
+            "detail": "Any OpenAI-compatible endpoint, or a small model inside your network. No code change."
+          }
+        ]
+      },
+      {
+        "label": "Platform",
+        "heading": "Built to be audited.",
+        "lead": "What a CA or a security reviewer asks first: who sees what, what cannot be changed afterwards, and what happens when two businesses share a database.",
+        "features": [
+          {
+            "name": "Tenant isolation",
+            "detail": "Postgres row-level security under a non-owner role. A missing WHERE clause still cannot read another business."
+          },
+          {
+            "name": "Permissions, not roles",
+            "detail": "Every screen requires a named permission. Roles are templates that expand into permission sets."
+          },
+          {
+            "name": "Append-only journal",
+            "detail": "No UPDATE or DELETE grant on the journal. A correction is a reversing entry."
+          },
+          {
+            "name": "Event-sourced",
+            "detail": "One settlement line feeds reconciliation, ledger, GST and inventory from a single append-only log."
+          },
+          {
+            "name": "Maker-checker",
+            "detail": "Whoever raises a payout cannot approve it, enforced by the platform rather than by policy."
+          },
+          {
+            "name": "Module licensing",
+            "detail": "Each module is separately licensable. The sidebar renders from your entitlements."
+          },
+          {
+            "name": "Money as integer paise",
+            "detail": "End to end, so no figure is the result of a floating-point multiplication."
+          },
+          {
+            "name": "Single sign-on",
+            "detail": "Verification against your identity provider.",
+            "status": "soon"
+          }
+        ]
+      }
+    ]
+  },
+  "bookDemo": {
+    "title": "Book a demo",
+    "subtitle": "Thirty minutes. We walk the ledger, the reconciliation and the journal entries end to end.",
+    "tabSchedule": "Schedule a call",
+    "tabMessage": "Send a message",
+    "calendlyTitle": "Pick a time",
+    "calendlyDescription": "Choose a slot and we will walk through {{productName}} on demo data, or on a settlement of yours if you would rather.",
+    "formTitle": "Send us a message",
+    "formDescription": "Tell us which marketplaces you sell on and who closes your books today. We reply within one working day.",
+    "formName": "Full name",
+    "formNamePlaceholder": "Jane Doe",
+    "formEmail": "Work email",
+    "formEmailPlaceholder": "jane@example.com",
+    "formCompany": "Company",
+    "formCompanyPlaceholder": "Acme Retail",
+    "formMessage": "What are you trying to solve?",
+    "formMessagePlaceholder": "Marketplaces, monthly GMV, and who closes your books today...",
+    "formSubmit": "Send message",
+    "formSubmitting": "Sending...",
+    "formComingSoon": "Coming soon",
+    "formSuccess": "Thanks. We will be in touch within one working day.",
+    "formError": "Something went wrong. Please try again.",
+    "whatToExpect": "What to expect",
+    "expect1": "A walkthrough of the ledger, settlements and reconciliation",
+    "expect2": "One settlement broken down gross to net",
+    "expect3": "What works today, and what is still in build",
+    "expect4": "No commitment",
+    "schedulerPlaceholder": "The scheduler will appear here once it is connected.",
+    "schedulerTitle": "Book a demo"
+  },
+  "cookieConsent": {
+    "message": "We use cookies to improve your experience, analyze site traffic, and personalize content. You can manage your preferences at any time.",
+    "accept": "Accept all",
+    "decline": "Decline all",
+    "manage": "Manage",
+    "manageTitle": "Cookie preferences",
+    "manageDescription": "Choose which cookies to allow. Necessary cookies are always enabled.",
+    "necessary": "Necessary",
+    "necessaryDescription": "Required for the website to function properly. Cannot be disabled.",
+    "analytics": "Analytics",
+    "analyticsDescription": "Help us understand how visitors use the site so we can improve it.",
+    "marketing": "Marketing",
+    "marketingDescription": "Used to track visitors and deliver relevant content and communications.",
+    "savePreferences": "Save preferences",
+    "back": "Back",
+    "learnMore": "Learn more"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "That page does not exist or has been moved.",
+    "backHome": "Back to home"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Notes on marketplace settlements, GST, and closing the books for Indian commerce.",
+    "noPosts": "No posts yet. Check back soon.",
+    "postNotFound": "Post not found",
+    "backToBlog": "Back to blog"
+  },
+  "rowState": {
+    "filed": "Claim filed",
+    "recovered": "Recovered",
+    "investigating": "Investigating",
+    "posted": "Posted",
+    "review": "Awaiting review"
+  },
+  "sectionNav": {
+    "recover": "Recover",
+    "automate": "Automate",
+    "comply": "GST & Tax",
+    "cosmo": "Ask Cosmo",
+    "platform": "Platform",
+    "trust": "Security"
+  }
+}

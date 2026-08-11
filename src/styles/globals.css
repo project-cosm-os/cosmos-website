@@ -1,0 +1,597 @@
+/**
+ * CosmOS website, global styles.
+ *
+ * ── LIGHT FIRST, DELIBERATELY ─────────────────────────────────────────────
+ *
+ * The boilerplate this came from was dark-first: a security product, sold to
+ * people who live in a terminal. CosmOS is sold to a founder and their CA, who
+ * live in a spreadsheet and read a P&L on a laptop in an office. The console
+ * defaults to light for the same reason, and a marketing site that opens dark
+ * and hands over to a light product is two products to the visitor.
+ *
+ * Dark is fully supported and honoured from the OS. It is just not the story.
+ *
+ * ── WHERE COLOUR COMES FROM ───────────────────────────────────────────────
+ *
+ * `brand-variables.css` is generated from `src/config/brand.ts` and carries the
+ * console's actual ramps. Nothing here should introduce a new hex value; if a
+ * colour is needed and does not exist, it belongs in brand.ts so the site and
+ * the product cannot drift apart.
+ *
+ * ── EVERY RULE BELOW IS IN A LAYER, AND THAT IS NOT COSMETIC ──────────────
+ *
+ * Unlayered CSS beats every @layer rule no matter what the specificity is. That
+ * is not a tie-break on specificity; it is a tier above it. So a bare `p {
+ * margin: 0 }` written outside a layer silently defeats Tailwind's `mx-auto`,
+ * and the failure is invisible: the class is on the element, devtools shows the
+ * class, and nothing is centred.
+ *
+ * That exact bug shipped in the first draft of this file and cost a debugging
+ * session to find. Hence: element resets go in `@layer base`, everything with a
+ * class name goes in `@layer components`, and utilities beat both, which is what
+ * every component here already assumes when it writes `className="card p-5"`.
+ *
+ * The two things deliberately left unlayered are the `:root` custom-property
+ * blocks (they declare tokens rather than compete for elements) and the
+ * reduced-motion override at the bottom, which must win against everything.
+ */
+
+@import 'tailwindcss';
+@import './brand-variables.css';
+
+/* ============================================================================
+   LEGACY ALIASES
+
+   The framework components inherited from the boilerplate read a handful of
+   names that predate the token file. Rather than rewrite thirty components to
+   chase a rename, the old names are mapped onto the new tokens here, in one
+   place, and each one is a genuine synonym rather than an approximation.
+   ============================================================================ */
+
+:root {
+  --bg-base: var(--surface-canvas);
+  --bg-elevated: var(--surface-raised);
+  --bg-card: var(--surface-raised);
+  --bg-card-hover: var(--surface-sunken);
+  --bg-input: var(--surface-raised);
+  --bg-header: rgba(255, 255, 255, 0.82);
+
+  --border-light: var(--border-subtle);
+  --border-focus: var(--primary);
+
+  --accent: var(--primary);
+  --accent-hover: var(--primary-hover);
+
+  --success: var(--status-success);
+  --success-rgb: 5, 150, 105;
+  --warning: var(--status-warning);
+  --warning-rgb: 217, 119, 6;
+  --error: var(--status-error);
+  --error-rgb: 220, 38, 38;
+  --info: var(--status-info);
+  --info-rgb: var(--brand-rgb-600);
+
+  --primary-glow: rgba(var(--brand-rgb-500), 0.14);
+  --primary-glow-light: rgba(var(--brand-rgb-500), 0.07);
+  --shadow-glow: 0 0 32px rgba(var(--brand-rgb-500), 0.12);
+
+  /**
+   * One deceleration curve for the whole site.
+   *
+   * Deliberately NOT expo-out, cubic-bezier(0.16, 1, 0.3, 1), which front-loads
+   * roughly 90% of the travel into the first quarter of the duration and reads
+   * as a snap rather than as motion. This one eases across the full duration.
+   */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --transition-fast: 140ms var(--ease-out);
+  --transition-base: 240ms var(--ease-out);
+
+  --section-spacing: 7rem;
+  --container-max: 1200px;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, 'JetBrains Mono', Menlo, monospace;
+}
+
+[data-theme='dark'],
+.dark {
+  --bg-header: rgba(6, 10, 20, 0.82);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-spacing: 4.5rem;
+  }
+}
+
+/* ============================================================================
+   BASE
+   ============================================================================ */
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--surface-canvas);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color var(--transition-base), color var(--transition-base);
+  }
+
+  ::selection {
+    background: rgba(var(--brand-rgb-500), 0.18);
+    color: var(--text-primary);
+  }
+
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+    border-radius: var(--radius-sm);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    color: var(--text-primary);
+    letter-spacing: -0.022em;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@layer components {
+  /**
+   * Tabular figures wherever a number appears.
+   *
+   * The single most product-specific typographic decision on the site. In
+   * proportional Inter, "₹1,52,000" and "₹1,86,000" are different widths, so a
+   * column of money jitters. This is a finance product; the numbers have to line
+   * up, on the marketing site as much as in the console.
+   */
+  .tnum,
+  .mono {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+  }
+
+  /* ==========================================================================
+     LAYOUT
+     ========================================================================== */
+
+  .section-container {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  .section {
+    padding-block: var(--section-spacing);
+  }
+
+  /**
+   * The eyebrow above a section heading. Small, spaced capitals in the accent,
+   * one of only three places blue appears on a page.
+   */
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--primary);
+  }
+
+  /* ==========================================================================
+     BUTTONS
+
+     The filled button is INK, not brand blue. See src/config/brand.ts. This is
+     the decision that makes the site look like the product rather than like a
+     template with our logo on it.
+     ========================================================================== */
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost,
+  .btn-outline,
+  .btn-cta-primary,
+  .btn-cta-secondary {
+    transition: background-color var(--transition-fast), color var(--transition-fast),
+      border-color var(--transition-fast), transform var(--transition-fast);
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-outline:active,
+  .btn-cta-primary:active {
+    transform: scale(0.985);
+  }
+
+  .btn-primary {
+    background: var(--action-bg);
+    color: var(--action-fg);
+  }
+  .btn-primary:hover {
+    background: var(--action-bg-hover);
+  }
+
+  .btn-secondary {
+    background: var(--surface-raised);
+    color: var(--text-primary);
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-sm);
+  }
+  .btn-secondary:hover {
+    border-color: var(--border-strong);
+    background: var(--surface-sunken);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+  }
+  .btn-ghost:hover {
+    color: var(--text-primary);
+    background: var(--surface-sunken);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+  }
+  .btn-outline:hover {
+    background: var(--surface-sunken);
+  }
+
+  /* On the ink CTA band, the fill inverts so it still reads as the primary. */
+  .btn-cta-primary {
+    background: var(--surface-raised);
+    color: var(--text-primary);
+  }
+  .btn-cta-primary:hover {
+    background: var(--ink-100);
+  }
+
+  .btn-cta-secondary {
+    background: transparent;
+    color: var(--text-on-ink);
+    border-color: rgba(255, 255, 255, 0.24);
+  }
+  .btn-cta-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.44);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  /* ==========================================================================
+     SURFACES
+     ========================================================================== */
+
+  .card {
+    background: var(--surface-raised);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .card-hover:hover {
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Kept for boilerplate components that still reference it. Glass over a light
+     canvas is a blur with no frost: the effect is the border, not the haze. */
+  .glass-card {
+    background: var(--surface-raised);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .glow-card {
+    position: relative;
+    background: var(--surface-raised);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+      transform var(--transition-fast);
+  }
+  .glow-card:hover {
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+  .glow-card > * {
+    position: relative;
+  }
+
+  /**
+   * The accent applied to one phrase in a heading.
+   *
+   * A flat colour, not a gradient. A gradient across a headline is the fastest
+   * way to look like every other AI landing page, and this product's whole claim
+   * is that it is not one.
+   */
+  .gradient-text-bold {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  /* ==========================================================================
+     THE GRID BACKGROUND
+
+     A faint ledger rule behind the hero. It is the one decorative element on
+     the site and it earns its place by being on-theme: ruled paper is what
+     accounts were kept on.
+
+     ── TWO LAYERS, AND THE REASON IS THE VIGNETTE ────────────────────────
+
+     The obvious build is one pseudo-element carrying the grid, a rotation and
+     a `mask-image` for the soft edges. It does not work. A mask belongs to the
+     element it is set on, so it inherits that element's transform: rotate the
+     layer and the vignette rotates, animate the layer and the vignette slides
+     off with it. The fade has to stay pinned to the section while the rules
+     underneath move.
+
+     So the fade is painted rather than masked. `::before` is the grid, angled
+     and drifting; `::after` is a radial wash of the canvas colour sitting on
+     top of it, fixed to the section. Same look, and the two are independent.
+
+     ── WHY IT LOOPS SEAMLESSLY ───────────────────────────────────────────
+
+     The tile is 64px and the animation travels exactly 64px on both axes, so
+     the last frame lands the pattern precisely where the first frame started.
+     Any other distance produces a visible jump once per cycle, which on a
+     32-second loop is the kind of thing you notice on the third viewing and
+     cannot then unsee.
+     ========================================================================== */
+
+  .grid-bg {
+    position: relative;
+    isolation: isolate;
+    /* The grid layer is deliberately larger than its box so that rotating it
+       still covers the corners. Without this it spills past the section. */
+    overflow: hidden;
+  }
+
+  .grid-bg::before {
+    content: '';
+    position: absolute;
+    /* Oversized: a rectangle rotated by 8 degrees does not cover its own
+       bounding box, and the drift needs somewhere to travel from. */
+    inset: -60%;
+    z-index: -2;
+    background-image:
+      linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity: 0.7;
+    transform: rotate(-8deg);
+    animation: grid-drift 32s linear infinite;
+    will-change: transform;
+  }
+
+  /* The fade, painted over the rules rather than masked into them. */
+  .grid-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 35%,
+      transparent 30%,
+      var(--surface-canvas) 78%
+    );
+  }
+
+  /* ==========================================================================
+     BROWSER MOCKUP, the console frame in the hero
+     ========================================================================== */
+
+  .browser-mockup {
+    background: var(--surface-raised);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  .browser-mockup-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--surface-sunken);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .browser-mockup-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-full);
+    background: var(--border-strong);
+  }
+
+  .browser-mockup-url {
+    flex: 1;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+  }
+
+  .browser-mockup-content {
+    background: var(--surface-canvas);
+  }
+
+  /* ==========================================================================
+     MOTION
+
+     Short and few. Entrance only, nothing looping, nothing that moves while
+     somebody is trying to read a number.
+     ========================================================================== */
+
+  .animate-in {
+    animation: rise-in 520ms var(--ease-out) both;
+  }
+
+  /* Tab panels on /book-demo. Keyed on the active tab, so React remounts and
+     the animation restarts on every switch. */
+  .tab-panel {
+    animation: rise-in 280ms var(--ease-out) both;
+  }
+
+  /* ==========================================================================
+     SCROLL REVEALS
+
+     Armed by `data-motion="on"`, which index.html sets inline before first
+     paint. Without it every rule here is inert, which is what makes the
+     prerendered HTML and a no-JS reader see a normal, fully visible page.
+     src/lib/reveal.ts adds `data-revealed` when a section crosses the viewport.
+
+     ── THE EASING IS THE WHOLE EFFECT ────────────────────────────────────
+
+     Not expo-out. `cubic-bezier(0.16, 1, 0.3, 1)` is the fashionable choice
+     and it puts about 90% of the travel in the first quarter of the duration,
+     so the eye reads it as a snap followed by a long stall rather than as
+     movement. The curve below decelerates across the whole duration, which is
+     what actually reads as smooth. This was measured the hard way in the
+     console.
+
+     Transform and opacity only, so every reveal stays on the compositor and
+     nothing triggers layout while somebody is scrolling.
+     ========================================================================== */
+
+  [data-reveal] {
+    /* The delay each child sets to stagger within a group. */
+    --reveal-delay: 0ms;
+  }
+
+  [data-motion='on'] [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    will-change: opacity, transform;
+  }
+
+  [data-motion='on'] [data-reveal='fade'] {
+    transform: none;
+  }
+
+  [data-motion='on'] [data-reveal='right'] {
+    transform: translateX(24px);
+  }
+
+  [data-motion='on'] [data-reveal='left'] {
+    transform: translateX(-24px);
+  }
+
+  [data-motion='on'] [data-reveal='scale'] {
+    transform: translateY(18px) scale(0.985);
+  }
+
+  [data-motion='on'] [data-reveal][data-revealed] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 620ms var(--ease-out) var(--reveal-delay),
+      transform 720ms var(--ease-out) var(--reveal-delay);
+    /* Dropped once the reveal is done: a permanent will-change keeps a layer
+       alive for every section on the page for no further benefit. */
+    will-change: auto;
+  }
+}
+
+/* The small entrance animations that replaced framer-motion. Each is one
+   compositor-friendly property pair and none of them is longer than a beat. */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/**
+ * The grid drift.
+ *
+ * The rotation is repeated in both keyframes on purpose: a transform is a list,
+ * not a set of independent properties, so omitting `rotate` from the `to` frame
+ * would animate the layer back to square over the cycle rather than holding the
+ * angle. Travel is exactly one 64px tile on each axis, which is what makes the
+ * loop invisible.
+ *
+ * Transform only, so the whole thing stays on the compositor and no frame of
+ * this costs a layout or a paint.
+ */
+@keyframes grid-drift {
+  from {
+    transform: rotate(-8deg) translate(0, 0);
+  }
+  to {
+    transform: rotate(-8deg) translate(64px, 64px);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Unlayered and !important on purpose: this must beat everything above. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

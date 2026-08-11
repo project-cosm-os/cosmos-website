@@ -1,0 +1,63 @@
+# Netlify deployment for the CosmOS AI site.
+#
+# ── NO SECRETS IN THIS FILE, DELIBERATELY ────────────────────────────────────
+#
+# The sibling arivlabs site configures form notifications here, with the
+# recipient address written into the repo. That is fine when the address is
+# already public. It is not what was asked for here, so this file names no
+# addresses and no calendar: both are set in the Netlify dashboard, where they
+# stay out of git, out of the build, and out of anything the CDN serves.
+#
+# Set these under Site configuration → Environment variables:
+#
+#   SCHEDULING_URL            The Google Calendar appointment schedule URL.
+#                             No VITE_ prefix, so Vite cannot inline it. Read
+#                             at request time by netlify/functions/schedule.ts.
+#
+#   VITE_SCHEDULING_PROVIDER  google | calendly | none      (default: google)
+#   VITE_FORMS_PROVIDER       netlify | hubspot | none      (default: netlify)
+#   VITE_POSTHOG_KEY          Optional. A CosmOS project key, not another
+#                             product's.
+#
+# And the form notification email under Forms → Form notifications, pointing at
+# Jagadeesh's address. Not here.
+
+[build]
+  publish = "dist"
+  command = "pnpm build"
+
+[build.environment]
+  NODE_VERSION = "24"
+  # The build runs typecheck, the four copy/i18n/figures checks, the
+  # prerenderer and then the prerender assertions. A failure here is a failed
+  # deploy, which is the intent: the checks exist to stop exactly the kind of
+  # defect that looks fine in a preview.
+  NPM_FLAGS = "--version"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# ── Routing ─────────────────────────────────────────────────────────────────
+#
+# Every route is prerendered to its own HTML file, and Netlify serves a
+# matching static file before it consults these rules. So this is a fallback
+# for genuinely unknown paths, which React renders as the 404 page. It must
+# stay status 200: a 301 here would send the SPA shell under a redirect and
+# lose the original path.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ── Headers ─────────────────────────────────────────────────────────────────
+#
+# Deliberately NOT here. They are generated into dist/_headers by
+# scripts/generate-headers.ts, because the Content-Security-Policy contains a
+# sha256 hash of the inline script in index.html and a hash written by hand
+# desynchronises from the script it protects the moment either changes. The
+# browser then silently refuses to run it and the only symptom is a console
+# message on a page that otherwise looks fine.
+#
+# Netlify reads _headers from the publish directory with the same semantics as
+# a [[headers]] block here, so nothing is lost by generating them.

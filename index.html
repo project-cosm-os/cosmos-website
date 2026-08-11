@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/branding/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- SEO meta tags (title, description, og:*, twitter:*, canonical, JSON-LD)
+         are injected per-page by react-helmet-async + vite-prerender-plugin.
+         Do NOT add them here — they belong in src/components/shared/SEO.tsx. -->
+    <title>CosmOS AI | Autonomous Finance for Indian Commerce</title>
+    <!-- Light only. The dark palette is still generated into the stylesheet, so
+         re-enabling is a matter of restoring a toggle rather than restyling.
+
+         data-motion arms the scroll-reveal styles. It is set here, inline and
+         before first paint, for three reasons: the prerendered HTML on disk
+         never carries it, so a crawler reads a fully visible page; a browser
+         arms it before painting, so nothing is shown and then hidden; and the
+         <noscript> rule below disarms it for a reader without JS, who would
+         otherwise get a blank page waiting for an observer that never runs. -->
+    <script>
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.setAttribute('data-motion', 'on');
+    </script>
+    <noscript>
+      <style>
+        [data-reveal] { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
+    <!-- Fonts, loaded without blocking the first paint.
+
+         A plain <link rel="stylesheet"> to Google Fonts is render-blocking:
+         the browser will not paint anything until it has fetched the CSS and
+         then the font file behind it, on a third-party connection. On a slow
+         Indian mobile network that is the difference between a fast page and a
+         page that appears to hang.
+
+         `media="print"` makes it non-blocking, and the onload flip applies it
+         as soon as it arrives. The <noscript> copy covers readers without JS.
+         `display=swap` is already in the URL, so text paints in the fallback
+         face immediately and swaps when Inter lands.
+
+         Weights are pinned to the four the site actually sets. The previous URL
+         asked for six, including 300 and 800, which nothing uses. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    >
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      >
+    </noscript>
+  </head>
+  <body>
+    <!--
+      Netlify Forms detection stub.
+
+      Netlify finds forms by parsing the deployed HTML at build time. It never
+      executes JavaScript, and the real form on /book-demo sits behind a tab
+      that is not the default, so it is not in any prerendered file and Netlify
+      would register no form at all. Every submission would then 404, which
+      reads like a routing bug and is not one.
+
+      This is Netlify's own documented answer for JS-rendered forms: a plain,
+      hidden copy whose only job is to be found. The React form posts to "/"
+      with a matching `form-name`, and Netlify matches them up by that name.
+
+      The field list must match src/components/integrations/DemoForm.tsx.
+      `check:prerender` compares the two on every build, because a stub that
+      has silently drifted from the real form is worse than no stub: the fields
+      it does not know about are dropped without an error anywhere.
+    -->
+    <form name="demo-request" data-netlify="true" netlify-honeypot="website" hidden>
+      <input type="hidden" name="form-name" value="demo-request" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="company" />
+      <textarea name="message"></textarea>
+      <input type="text" name="website" />
+    </form>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

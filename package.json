@@ -1,0 +1,64 @@
+{
+  "name": "@cosmos/website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0 <25",
+    "pnpm": "10.0.0"
+  },
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && tsx scripts/generate-brand-css.ts && tsx scripts/check-copy.ts && tsx scripts/check-i18n.ts && tsx scripts/check-figures.ts && tsx scripts/generate-seo-files.ts && tsx scripts/build.ts && tsx scripts/generate-headers.ts && tsx scripts/check-prerender.ts",
+    "preview": "vite preview",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
+    "format": "prettier --write 'src/**/*.{ts,tsx,css,json}'",
+    "generate:brand-css": "tsx scripts/generate-brand-css.ts",
+    "typecheck": "tsc --noEmit",
+    "generate:seo": "tsx scripts/generate-seo-files.ts",
+    "check:copy": "tsx scripts/check-copy.ts",
+    "check:prerender": "tsx scripts/check-prerender.ts",
+    "check:figures": "tsx scripts/check-figures.ts",
+    "check:i18n": "tsx scripts/check-i18n.ts",
+    "generate:headers": "tsx scripts/generate-headers.ts"
+  },
+  "dependencies": {
+    "date-fns": "4.1.0",
+    "i18next": "25.8.7",
+    "i18next-browser-languagedetector": "8.2.1",
+    "lucide-react": "0.564.0",
+    "posthog-js": "1.347.2",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-helmet-async": "2.0.5",
+    "react-i18next": "16.5.4",
+    "react-markdown": "10.1.0",
+    "react-router": "7.18.2",
+    "remark-gfm": "4.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.2",
+    "@netlify/functions": "5.3.0",
+    "@tailwindcss/vite": "4.1.18",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "5.1.4",
+    "autoprefixer": "10.4.24",
+    "decode-named-character-reference": "1.3.0",
+    "eslint": "9.39.2",
+    "globals": "17.3.0",
+    "prettier": "3.8.1",
+    "tailwindcss": "4.1.18",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.55.0",
+    "vite": "7.3.5",
+    "vite-prerender-plugin": "0.5.12"
+  },
+  "description": "CosmOS marketing site \u2014 autonomous finance for Indian commerce",
+  "pnpm": {
+    "onlyBuiltDependencies": []
+  }
+}

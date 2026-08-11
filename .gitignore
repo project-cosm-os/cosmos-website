@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE / Editor
+#
+# .claude/ is deliberately NOT ignored. The boilerplate this was copied from
+# had a blanket `.claude/` rule at the bottom of the file, which silently
+# dropped launch.json from the commit: that file records how to run this
+# project's dev server, which is true for anyone who clones it, and
+# cosmos-console commits the same thing.
+#
+# Only the per-person override is excluded.
+.claude/settings.local.json
+
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite
+vite.config.ts.timestamp-*
+
+# Testing
+coverage/
+
+# Misc
+*.local
