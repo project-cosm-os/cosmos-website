@@ -76,6 +76,24 @@ for (const route of ROUTES) {
   const head = html.split('</head>')[0] ?? '';
   const body = html.split('<body>')[1] ?? '';
 
+  /*
+    The canonical must name the URL the host actually serves.
+
+    Netlify serves a prerendered route from `<route>/index.html` at
+    `/features/` and 301s the slashless form to it. Canonicals saying
+    `/features` therefore pointed at a URL that redirected back to the page
+    carrying the tag, and the sitemap submitted the redirecting form of every
+    URL. Nothing broke; Google was simply asked to resolve a contradiction on
+    every route.
+
+    Cheap to assert, and impossible to notice by reading the page.
+  */
+  const canonical = head.match(/rel="canonical"[^>]*href="([^"]+)"/)?.[1];
+  const expected = route.name === '/' ? '/' : `${route.name}/`;
+  if (canonical && !canonical.endsWith(expected)) {
+    failures.push(`${route.name}: canonical is ${canonical}, expected it to end with ${expected}`);
+  }
+
   for (const tag of REQUIRED_TAGS) {
     if (!tag.re.test(head)) failures.push(`${route.name}: missing or empty ${tag.name}`);
   }
