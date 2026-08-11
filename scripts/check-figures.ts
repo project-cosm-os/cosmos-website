@@ -89,7 +89,33 @@ const statedSubtotal = rupees(String(dict.pillars.recover.footer).match(/₹[\d,
 check('Recover rows subtotal', recoverRows.reduce((a, b) => a + b, 0), statedSubtotal);
 
 /*
-  7. The trace section: one settlement line, the referral-fee rule that fires on
+  7. The Automate panel is a day's journal, so its rows are independent entries
+     rather than lines of one voucher. They still have to agree with each other,
+     because of what sits next to what: "TCS withheld u/s 52" renders directly
+     under the settlement it says it is matched to, and 0.5% of a number on the
+     line above is a division the reader will do. It shipped at ₹3,932 against a
+     ₹2,54,228 settlement, implying a base three times too large.
+
+     Nothing about the layout stops that figure drifting again, so it is pinned
+     to the row it claims to match.
+*/
+const automateRows = dict.pillars.automate.rows as { title: string; amount: string }[];
+const automateAmount = (needle: string) =>
+  rupees(automateRows.find((r) => r.title.includes(needle))?.amount ?? '0');
+
+const SETTLEMENT = automateAmount('Amazon settlement');
+check('Automate TCS at 0.5% of the settlement it is matched to', Math.round(SETTLEMENT * 0.005), automateAmount('TCS withheld'));
+
+// Cost of goods above the revenue on the same day's journal would read as a
+// loss-making business on the page arguing the books are trustworthy.
+if (automateAmount('COGS') >= SETTLEMENT) {
+  failures.push(
+    `Automate COGS ${automateAmount('COGS').toLocaleString('en-IN')} is not below the settlement ${SETTLEMENT.toLocaleString('en-IN')}`,
+  );
+}
+
+/*
+  8. The trace section: one settlement line, the referral-fee rule that fires on
      it, and the entry it posts.
 
      This one is checked harder than the rest because it is the section that
