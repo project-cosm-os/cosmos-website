@@ -27,12 +27,16 @@
   command = "pnpm build"
 
 [build.environment]
+  # Both pinned, and both have to be, because .npmrc sets engine-strict=true
+  # and package.json declares `engines.pnpm: "10.0.0"` exactly. If Netlify
+  # installs any other pnpm, the install does not warn, it fails.
+  #
+  # PNPM_VERSION is belt and braces alongside the `packageManager` field, which
+  # Netlify honours through corepack. Relying on corepack alone means the build
+  # breaks the day that behaviour changes, and the error surfaces as a version
+  # mismatch during install rather than anything to do with this site.
   NODE_VERSION = "24"
-  # The build runs typecheck, the four copy/i18n/figures checks, the
-  # prerenderer and then the prerender assertions. A failure here is a failed
-  # deploy, which is the intent: the checks exist to stop exactly the kind of
-  # defect that looks fine in a preview.
-  NPM_FLAGS = "--version"
+  PNPM_VERSION = "10.0.0"
 
 [functions]
   directory = "netlify/functions"
