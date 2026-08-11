@@ -60,7 +60,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 ${entries
   .map(
     (e) => `  <url>
-    <loc>${origin}${e.path === '/' ? '/' : e.path}</loc>
+    <loc>${origin}${e.path === '/' ? '/' : `${e.path}/`}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${e.changefreq}</changefreq>
     <priority>${e.priority}</priority>

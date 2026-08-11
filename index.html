@@ -8,52 +8,58 @@
          are injected per-page by react-helmet-async + vite-prerender-plugin.
          Do NOT add them here — they belong in src/components/shared/SEO.tsx. -->
     <title>CosmOS AI | Autonomous Finance for Indian Commerce</title>
-    <!-- Light only. The dark palette is still generated into the stylesheet, so
-         re-enabling is a matter of restoring a toggle rather than restyling.
-
-         data-motion arms the scroll-reveal styles. It is set here, inline and
-         before first paint, for three reasons: the prerendered HTML on disk
-         never carries it, so a crawler reads a fully visible page; a browser
-         arms it before painting, so nothing is shown and then hidden; and the
-         <noscript> rule below disarms it for a reader without JS, who would
-         otherwise get a blank page waiting for an observer that never runs. -->
-    <script>
-      document.documentElement.setAttribute('data-theme', 'light');
-      document.documentElement.setAttribute('data-motion', 'on');
-    </script>
-    <noscript>
-      <style>
-        [data-reveal] { opacity: 1 !important; transform: none !important; }
-      </style>
-    </noscript>
     <!-- Fonts, loaded without blocking the first paint.
 
-         A plain <link rel="stylesheet"> to Google Fonts is render-blocking:
-         the browser will not paint anything until it has fetched the CSS and
-         then the font file behind it, on a third-party connection. On a slow
-         Indian mobile network that is the difference between a fast page and a
-         page that appears to hang.
+         A plain <link rel="stylesheet"> to Google Fonts is render-blocking: the
+         browser paints nothing until it has fetched the CSS and then the font
+         behind it, over a third-party connection. On a slow Indian mobile
+         network that is the difference between a fast page and one that appears
+         to hang. media="print" makes it non-blocking; the script below promotes
+         it to "all" once it has arrived.
 
-         `media="print"` makes it non-blocking, and the onload flip applies it
-         as soon as it arrives. The <noscript> copy covers readers without JS.
-         `display=swap` is already in the URL, so text paints in the fallback
-         face immediately and swaps when Inter lands.
-
-         Weights are pinned to the four the site actually sets. The previous URL
-         asked for six, including 300 and 800, which nothing uses. -->
+         NOT `onload="this.media='all'"`, which is what this used to be. CSP
+         blocks inline event handlers outright, and unlike an inline script element a
+         hash cannot whitelist one: you would need 'unsafe-hashes'. So the
+         handler was silently blocked in production and Inter never loaded,
+         while the dev server (which sends no CSP) looked perfect. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
+      id="webfont"
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       media="print"
-      onload="this.media='all'"
     >
     <noscript>
       <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       >
+    </noscript>
+
+    <!-- One inline script, so one CSP hash.
+
+         data-theme keeps the site light. data-motion arms the scroll-reveal
+         styles, and is set here rather than in the stylesheet for three
+         reasons: the prerendered HTML on disk never carries it, so a crawler
+         reads a fully visible page; a real browser arms it before painting, so
+         nothing is shown and then hidden; and the <noscript> rule below disarms
+         it for a reader without JS, who would otherwise wait forever for an
+         observer that never runs. -->
+    <script>
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.setAttribute('data-motion', 'on');
+      (function () {
+        var f = document.getElementById('webfont');
+        if (!f) return;
+        if (f.sheet) { f.media = 'all'; return; }
+        f.addEventListener('load', function () { f.media = 'all'; });
+      })();
+    </script>
+    <noscript>
+      <style>
+        [data-reveal] { opacity: 1 !important; transform: none !important; }
+      </style>
     </noscript>
   </head>
   <body>

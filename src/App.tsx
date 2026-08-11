@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation, Navigate } from 'react-router';
+import { Routes, Route, useLocation } from 'react-router';
 import { useEffect, lazy, Suspense } from 'react';
 
 import { ROUTES } from './config/navigation';
@@ -31,19 +31,16 @@ import NotFound from './pages/NotFound';
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 
 /**
- * Strips trailing slashes to prevent duplicate URLs for SEO.
- * Google treats /blog and /blog/ as different pages — this normalizes to no trailing slash.
+ * Trailing slashes are kept, not stripped.
+ *
+ * This used to redirect `/features/` to `/features`, which fought the host:
+ * Netlify serves prerendered routes from `<route>/index.html` at `/features/`
+ * and 301s the slashless form to it. The two rules pointed at each other, so
+ * every route cost a redirect and the canonical tag named a URL that bounced
+ * back to the page it was on.
+ *
+ * The host wins, because the host is what a crawler talks to.
  */
-function TrailingSlashRedirect() {
-  const { pathname, search, hash } = useLocation();
-
-  if (pathname !== '/' && pathname.endsWith('/')) {
-    return <Navigate to={pathname.replace(/\/+$/, '') + search + hash} replace />;
-  }
-
-  return null;
-}
-
 /**
  * Scrolls to the section named in the URL hash.
  *
@@ -101,7 +98,6 @@ function App() {
 
   return (
     <Layout>
-      <TrailingSlashRedirect />
       <HashScroll />
       <Routes>
         <Route path={ROUTES.home} element={<Home />} />

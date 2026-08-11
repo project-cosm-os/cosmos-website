@@ -76,6 +76,24 @@ for (const route of ROUTES) {
   const head = html.split('</head>')[0] ?? '';
   const body = html.split('<body>')[1] ?? '';
 
+  /*
+    The canonical must name the URL the host actually serves.
+
+    Netlify serves a prerendered route from `<route>/index.html` at
+    `/features/` and 301s the slashless form to it. Canonicals saying
+    `/features` therefore pointed at a URL that redirected back to the page
+    carrying the tag, and the sitemap submitted the redirecting form of every
+    URL. Nothing broke; Google was simply asked to resolve a contradiction on
+    every route.
+
+    Cheap to assert, and impossible to notice by reading the page.
+  */
+  const canonical = head.match(/rel="canonical"[^>]*href="([^"]+)"/)?.[1];
+  const expected = route.name === '/' ? '/' : `${route.name}/`;
+  if (canonical && !canonical.endsWith(expected)) {
+    failures.push(`${route.name}: canonical is ${canonical}, expected it to end with ${expected}`);
+  }
+
   for (const tag of REQUIRED_TAGS) {
     if (!tag.re.test(head)) failures.push(`${route.name}: missing or empty ${tag.name}`);
   }
@@ -95,6 +113,28 @@ for (const route of ROUTES) {
     if (!existsSync(join(dist, href.replace(/^\//, '')))) {
       failures.push(`${route.name}: references ${href}, which is not in dist`);
     }
+  }
+
+  /*
+    Inline event handlers cannot run under this CSP.
+
+    A hash whitelists an inline <script>; it does nothing for an `onload=` or
+    `onclick=` attribute, which needs 'unsafe-hashes' or 'unsafe-inline'. So a
+    handler in the built HTML is code that silently never executes in
+    production while working perfectly on the dev server, which sends no CSP.
+
+    That shipped once: `onload="this.media='all'"` on the font stylesheet, so
+    Inter never loaded and the site ran on fallback fonts with no visible error.
+  */
+  // Comments masked first. This file explains the bug in prose that contains
+  // the very string being searched for, and relying on the surrounding
+  // punctuation not to match is luck rather than a rule.
+  const htmlNoComments = html.replace(/<!--[\s\S]*?-->/g, '');
+  for (const match of htmlNoComments.matchAll(/\son(?:load|click|error|submit|change|focus|blur|mouse\w+)=/g)) {
+    const near = htmlNoComments
+      .slice(Math.max(0, (match.index ?? 0) - 60), (match.index ?? 0) + 40)
+      .replace(/\s+/g, ' ');
+    failures.push(`${route.name}: inline event handler, blocked by CSP and will not run — ...${near.trim()}...`);
   }
 
   // ── Structured data must be present, parse, and carry the expected types ──
@@ -188,6 +228,10 @@ for (const [, hash] of navHashes) {
     }
     if (/script-src[^;]*'unsafe-inline'/.test(headers)) {
       failures.push("dist/_headers CSP allows 'unsafe-inline' in script-src");
+    }
+    // The booking iframe is same-origin (/api/schedule) before it redirects.
+    if (!/frame-src[^;]*'self'/.test(headers)) {
+      failures.push("dist/_headers CSP frame-src is missing 'self'; the booking iframe will be blocked");
     }
     for (const required of ['Strict-Transport-Security', 'X-Content-Type-Options', 'frame-ancestors']) {
       if (!headers.includes(required)) failures.push(`dist/_headers is missing ${required}`);

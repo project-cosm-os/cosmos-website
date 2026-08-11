@@ -19,8 +19,22 @@ import { createHash } from 'node:crypto';
  * generator and the checker import this, and neither can influence the other.
  */
 export function inlineScriptHashes(html: string): string[] {
+  /*
+    Comments are stripped before anything else, and that is not tidiness.
+
+    index.html explains this CSP in a comment that contains the literal word
+    <script>. The matcher found it, hashed the prose that followed, and put
+    that hash in the header. The real script was then unhashed, so the browser
+    blocked it: no theme attribute, no scroll reveals, no webfont, and the only
+    evidence a console message on an otherwise normal-looking page.
+
+    It survived a full build, every check, and a curl of the deployed site,
+    because none of those execute a CSP.
+  */
+  const source = html.replace(/<!--[\s\S]*?-->/g, '');
+
   const hashes = new Set<string>();
-  for (const match of html.matchAll(/<script(?![^>]*\ssrc=)[^>]*>([\s\S]*?)<\/script>/g)) {
+  for (const match of source.matchAll(/<script(?![^>]*\ssrc=)[^>]*>([\s\S]*?)<\/script>/g)) {
     // JSON-LD is data, never executed, and not gated by CSP.
     if (/application\/ld\+json/.test(match[0])) continue;
     const body = match[1];

@@ -57,8 +57,21 @@ const csp = [
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: https:",
   "connect-src 'self' https://us.i.posthog.com https://api.hsforms.com",
-  // The booking embed. Without this the iframe is an empty box.
-  'frame-src https://calendar.google.com https://calendly.com',
+  /*
+    'self' is not optional here, and leaving it out is what broke the booking
+    page in production.
+
+    The Scheduler iframe points at `/api/schedule`, a same-origin path that a
+    Netlify Function redirects to Google. CSP evaluates the frame against the
+    URL being framed, which is ours, so without 'self' the frame is blocked
+    before the redirect is ever followed. The console said so plainly; nothing
+    on the page did, because a blocked frame renders as an empty box.
+
+    curl and the dev server both missed it: one ignores CSP, the other sends
+    none. The only way to catch this class of bug is to load the page against
+    the real headers.
+  */
+  "frame-src 'self' https://calendar.google.com https://calendly.com",
   "form-action 'self' https://api.hsforms.com",
   "base-uri 'self'",
   "object-src 'none'",

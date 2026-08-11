@@ -131,7 +131,18 @@ const SEO: React.FC<SEOProps> = ({
 }) => {
   const fullTitle = title ? BRAND.seo.titleTemplate.replace('%s', title) : BRAND.seo.defaultTitle;
 
-  const canonicalUrl = `${BRAND.websiteUrl}${path}`;
+  /*
+    ── THE TRAILING SLASH IS NOT COSMETIC ────────────────────────────────
+    Netlify serves a prerendered route from `<route>/index.html` at
+    `/features/`, and 301s `/features` to it. Canonical tags saying
+    `/features` therefore pointed at a URL that redirects to the page
+    carrying the tag, which is a contradiction Google has to resolve on our
+    behalf, on every route, forever.
+
+    Matching what the host actually serves removes the redirect entirely.
+  */
+  const canonicalPath = path === '/' || path === '' ? '/' : `${path.replace(/\/$/, '')}/`;
+  const canonicalUrl = `${BRAND.websiteUrl}${canonicalPath}`;
   const ogImageUrl = `${BRAND.websiteUrl}${BRAND.seo.ogImage}`;
 
   const schemas = [
