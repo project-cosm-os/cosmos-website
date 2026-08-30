@@ -26,7 +26,19 @@ export const BRAND = {
    */
   brandName: 'CosmOS AI',
   productName: 'CosmOS',
-  companyName: 'CosmOS AI',
+  /*
+    THE LEGAL ENTITY, not the brand.
+
+    This field feeds the copyright line and the schema.org `Organization` and
+    `publisher`, all of which name whoever is accountable rather than whatever
+    the product is called. It held 'CosmOS AI', which is a brand and not a
+    company, so the site asserted a legal entity that does not exist.
+
+    Caught while preparing the Amazon SP-API developer registration, where the
+    reviewer reads the privacy policy to establish who is answerable for a
+    seller's data. The product name is expected to change; this one is not.
+  */
+  companyName: 'ArivLabs',
   productTagline: 'Autonomous finance for Indian commerce.',
   productCategory: 'Autonomous Finance Platform',
 
@@ -56,7 +68,7 @@ export const BRAND = {
     heroTitle: 'The finance team that runs itself.',
     heroSubtitle:
       'CosmOS connects your marketplaces, catches every leaked rupee, files the claims, and books the entries, so your books are always closed, always audit-ready, and always yours.',
-    footerText: '© 2026 CosmOS AI. All rights reserved.',
+    footerText: '© 2026 ArivLabs. All rights reserved.',
     /*
       No addresses here.
 
