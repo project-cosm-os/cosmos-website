@@ -30,7 +30,30 @@ import Button from '../shared/Button';
  * submittable after someone remembers to flip a flag is worse than four inert
  * attributes.
  */
-const DemoForm: React.FC<{ className?: string }> = ({ className = '' }) => {
+const DemoForm: React.FC<{
+  className?: string;
+  source?: string;
+  /**
+   * Dictionary key for the message field's label.
+   *
+   * The default asks what you are trying to solve, which is right on a demo
+   * page and wrong on Contact, where the privacy policy sends people to request
+   * their data or its deletion. Nobody deleting an account is solving anything.
+   */
+  messageLabelKey?: string;
+}> = ({
+  className = '',
+  /*
+    Which page this form is on, for analytics only.
+
+    The Netlify form NAME stays one value for both pages, because that is a
+    piece of deployment configuration and a second one would need a second form
+    configured and watched. What differs is only where the visitor was standing,
+    and that belongs in the event rather than in the integration.
+  */
+  source = 'demo-request',
+  messageLabelKey = 'bookDemo.formMessage',
+}) => {
   const { t } = useTranslation();
   const { trackEvent } = useAnalytics();
   const provider = useMemo(() => formProvider(), []);
@@ -58,7 +81,7 @@ const DemoForm: React.FC<{ className?: string }> = ({ className = '' }) => {
     const result = await provider.submit(fields);
 
     if (result.ok) {
-      trackEvent('form_submitted', { form: 'demo-request', provider: provider.id });
+      trackEvent('form_submitted', { form: source, provider: provider.id });
       setState('success');
     } else {
       // The reason goes to the console, not the visitor: it names the provider
@@ -165,7 +188,7 @@ const DemoForm: React.FC<{ className?: string }> = ({ className = '' }) => {
 
       <div>
         <label className={labelClass} htmlFor="message">
-          {t('bookDemo.formMessage')}
+          {t(messageLabelKey)}
         </label>
         <textarea
           id="message"

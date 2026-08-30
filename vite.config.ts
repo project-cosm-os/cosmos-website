@@ -146,6 +146,16 @@ export default defineConfig(({ mode }) => ({
         '/features',
         '/blog',
         '/book-demo',
+        /*
+          `/contact` must be PRERENDERED, not merely routable.
+        
+          Netlify finds a form by parsing the deployed HTML, and it never runs
+          JavaScript. A contact form that exists only after React hydrates is a
+          form Netlify has never seen, and every submission 404s. That is the
+          same reason /book-demo is on this list.
+        */
+        '/contact',
+        '/privacy',
         ...getBlogSlugs().map((slug) => `/blog/${slug}`),
       ],
     }),

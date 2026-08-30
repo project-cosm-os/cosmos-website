@@ -9,6 +9,8 @@ import Home from './pages/Home';
 import Features from './pages/Features';
 import Blog from './pages/Blog';
 import BookDemo from './pages/BookDemo';
+import Contact from './pages/Contact';
+import Privacy from './pages/Privacy';
 import NotFound from './pages/NotFound';
 
 /**
@@ -112,6 +114,8 @@ function App() {
           }
         />
         <Route path={ROUTES.bookDemo} element={<BookDemo />} />
+        <Route path={ROUTES.contact} element={<Contact />} />
+        <Route path={ROUTES.privacy} element={<Privacy />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>

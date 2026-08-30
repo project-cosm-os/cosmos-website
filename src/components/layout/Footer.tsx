@@ -46,6 +46,23 @@ const Footer: React.FC = () => {
             >
               {t('footer.bookDemo')}
             </Link>
+            {/*
+              Contact and the privacy policy sit in the footer, which is where a
+              reader looks for them, and where a reviewer checking that the company
+              behind an application can be reached looks first.
+            */}
+            <Link
+              to={ROUTES.contact}
+              className="text-sm text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors no-underline"
+            >
+              {t('footer.contact')}
+            </Link>
+            <Link
+              to={ROUTES.privacy}
+              className="text-sm text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors no-underline"
+            >
+              {t('footer.privacy')}
+            </Link>
             <a
               href={BRAND.social.linkedin}
               target="_blank"
