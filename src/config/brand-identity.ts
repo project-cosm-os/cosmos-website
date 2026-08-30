@@ -26,6 +26,19 @@ export const BRAND = {
    */
   brandName: 'CosmOS AI',
   productName: 'CosmOS',
+  /*
+    The BRAND, deliberately, even though this field feeds the copyright line and
+    the schema.org `Organization`.
+
+    The legal entity behind the product is ArivLabs, and it is named in exactly
+    one place: the privacy policy, which is the document that has to say who is
+    accountable for a seller's data. Everywhere else the site is CosmOS AI,
+    because that is what it is called and putting a holding name through the
+    metadata would say something about the product that is not the point.
+
+    A brand in a copyright line is ordinary. A brand in a privacy policy is not,
+    which is why the two differ here.
+  */
   companyName: 'CosmOS AI',
   productTagline: 'Autonomous finance for Indian commerce.',
   productCategory: 'Autonomous Finance Platform',

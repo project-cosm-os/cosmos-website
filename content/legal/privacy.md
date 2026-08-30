@@ -25,8 +25,10 @@ data.
 
 ## Who this is from
 
-CosmOS is a product of CosmOS AI. Requests about your data go through the
-[contact form](/contact).
+CosmOS is a product of ArivLabs. ArivLabs is the entity accountable for the
+data described here.
+
+Requests about your data go through the [contact form](/contact).
 
 ## What the product reads from your marketplace
 
