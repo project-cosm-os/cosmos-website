@@ -27,18 +27,19 @@ export const BRAND = {
   brandName: 'CosmOS AI',
   productName: 'CosmOS',
   /*
-    THE LEGAL ENTITY, not the brand.
+    The BRAND, deliberately, even though this field feeds the copyright line and
+    the schema.org `Organization`.
 
-    This field feeds the copyright line and the schema.org `Organization` and
-    `publisher`, all of which name whoever is accountable rather than whatever
-    the product is called. It held 'CosmOS AI', which is a brand and not a
-    company, so the site asserted a legal entity that does not exist.
+    The legal entity behind the product is ArivLabs, and it is named in exactly
+    one place: the privacy policy, which is the document that has to say who is
+    accountable for a seller's data. Everywhere else the site is CosmOS AI,
+    because that is what it is called and putting a holding name through the
+    metadata would say something about the product that is not the point.
 
-    Caught while preparing the Amazon SP-API developer registration, where the
-    reviewer reads the privacy policy to establish who is answerable for a
-    seller's data. The product name is expected to change; this one is not.
+    A brand in a copyright line is ordinary. A brand in a privacy policy is not,
+    which is why the two differ here.
   */
-  companyName: 'ArivLabs',
+  companyName: 'CosmOS AI',
   productTagline: 'Autonomous finance for Indian commerce.',
   productCategory: 'Autonomous Finance Platform',
 
@@ -68,7 +69,7 @@ export const BRAND = {
     heroTitle: 'The finance team that runs itself.',
     heroSubtitle:
       'CosmOS connects your marketplaces, catches every leaked rupee, files the claims, and books the entries, so your books are always closed, always audit-ready, and always yours.',
-    footerText: '© 2026 ArivLabs. All rights reserved.',
+    footerText: '© 2026 CosmOS AI. All rights reserved.',
     /*
       No addresses here.
 
