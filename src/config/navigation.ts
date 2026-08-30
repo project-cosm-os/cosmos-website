@@ -10,6 +10,8 @@ export const ROUTES = {
   features: '/features',
   blog: '/blog',
   bookDemo: '/book-demo',
+  contact: '/contact',
+  privacy: '/privacy',
 } as const;
 
 /**

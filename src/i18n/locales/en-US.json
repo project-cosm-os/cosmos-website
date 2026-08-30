@@ -16,7 +16,10 @@
     "email": "Email",
     "copyright": "© 2026 {{companyName}}. All rights reserved.",
     "tagline": "{{tagline}}",
-    "cookieSettings": "Cookie settings"
+    "cookieSettings": "Cookie settings",
+    "legal": "Legal",
+    "privacy": "Privacy policy",
+    "contact": "Contact us"
   },
   "hero": {
     "eyebrow": "Autonomous finance for Indian commerce",
@@ -779,22 +782,55 @@
     "source": {
       "caption": "Settlement Report V2",
       "fields": [
-        { "label": "Settlement", "value": "AMZ-IN-2026-12" },
-        { "label": "Order", "value": "402-7719318-4021146" },
-        { "label": "SKU", "value": "KTN-STL-750" },
-        { "label": "Category", "value": "Kitchen & Dining" },
-        { "label": "Fulfilment", "value": "FBA" },
-        { "label": "Item price", "value": "₹12,000" },
-        { "label": "Commission", "value": "−₹1,020" }
+        {
+          "label": "Settlement",
+          "value": "AMZ-IN-2026-12"
+        },
+        {
+          "label": "Order",
+          "value": "402-7719318-4021146"
+        },
+        {
+          "label": "SKU",
+          "value": "KTN-STL-750"
+        },
+        {
+          "label": "Category",
+          "value": "Kitchen & Dining"
+        },
+        {
+          "label": "Fulfilment",
+          "value": "FBA"
+        },
+        {
+          "label": "Item price",
+          "value": "₹12,000"
+        },
+        {
+          "label": "Commission",
+          "value": "−₹1,020"
+        }
       ]
     },
     "rule": {
       "caption": "Referral fee check",
       "rows": [
-        { "label": "Your rate card", "value": "7.0%" },
-        { "label": "Actually charged", "value": "8.5%" },
-        { "label": "Fee at your rate", "value": "₹840" },
-        { "label": "Fee on the line", "value": "₹1,020" }
+        {
+          "label": "Your rate card",
+          "value": "7.0%"
+        },
+        {
+          "label": "Actually charged",
+          "value": "8.5%"
+        },
+        {
+          "label": "Fee at your rate",
+          "value": "₹840"
+        },
+        {
+          "label": "Fee on the line",
+          "value": "₹1,020"
+        }
       ],
       "findingName": "Referral fee overcharge",
       "findingSeverity": "High",
@@ -814,8 +850,14 @@
           "side": "Dr",
           "amount": "₹10,980",
           "options": [
-            { "code": "1260", "name": "Amazon.in Clearing" },
-            { "code": "1210", "name": "Amazon.in Receivable" }
+            {
+              "code": "1260",
+              "name": "Amazon.in Clearing"
+            },
+            {
+              "code": "1210",
+              "name": "Amazon.in Receivable"
+            }
           ]
         },
         {
@@ -823,15 +865,26 @@
           "side": "Dr",
           "amount": "₹1,020",
           "options": [
-            { "code": "5110", "name": "Referral and Commission Fees" },
-            { "code": "5190", "name": "Other Marketplace Fees" }
+            {
+              "code": "5110",
+              "name": "Referral and Commission Fees"
+            },
+            {
+              "code": "5190",
+              "name": "Other Marketplace Fees"
+            }
           ]
         },
         {
           "key": "revenue.marketplace",
           "side": "Cr",
           "amount": "₹12,000",
-          "options": [{ "code": "4010", "name": "Marketplace Sales" }]
+          "options": [
+            {
+              "code": "4010",
+              "name": "Marketplace Sales"
+            }
+          ]
         }
       ],
       "debitTotalLabel": "Debits",
@@ -842,5 +895,14 @@
     },
     "mapNote": "Rules speak in keys. Your chart decides where a key lands, and that map is data your CA edits, not code we deploy.",
     "note": "The entry records what happened. The claim records what should have. Software that quietly posted the ₹840 you were owed would balance too, and your books would be a work of fiction."
+  },
+  "contact": {
+    "title": "Contact us",
+    "subtitle": "Questions about the product, your data, or anything else. Tell us what you need and we will come back to you.",
+    "privacyNote": "We use what you send only to reply. See the privacy policy for how we handle it.",
+    "formMessage": "How can we help?"
+  },
+  "legal": {
+    "updated": "Last updated {{date}}"
   }
 }

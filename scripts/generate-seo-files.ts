@@ -39,6 +39,15 @@ const entries: Entry[] = [
   { path: ROUTES.features, changefreq: 'monthly', priority: '0.9' },
   { path: ROUTES.bookDemo, changefreq: 'monthly', priority: '0.8' },
   { path: ROUTES.blog, changefreq: 'weekly', priority: '0.7' },
+  { path: ROUTES.contact, changefreq: 'monthly', priority: '0.6' },
+  /*
+    The privacy policy is in the sitemap on purpose.
+
+    It is the page an SP-API reviewer, a prospect's finance team and a search
+    engine all look for, and a policy nothing links to reads as one written to
+    satisfy a form rather than to be read.
+  */
+  { path: ROUTES.privacy, changefreq: 'monthly', priority: '0.4' },
 ];
 
 // Blog posts, read the same way the app reads them: the slug in the frontmatter
